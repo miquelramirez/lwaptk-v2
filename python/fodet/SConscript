@@ -3,7 +3,6 @@ Import('common_env')
 
 include_paths = ['.']
 common_env.Append( CPPPATH = [ os.path.abspath(p) for p in include_paths ] )
-
 cxx_sources = Glob('*.cxx')
 c_sources = Glob('*.c')
 
