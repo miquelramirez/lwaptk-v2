@@ -10,7 +10,7 @@ public:
 	FOD_Problem( std::string, std::string );
 	~FOD_Problem();
 
-	aptk::FOND_Model*	instance() {
+	aptk::FOD_Problem*	instance() {
 		return m_problem;
 	}
 

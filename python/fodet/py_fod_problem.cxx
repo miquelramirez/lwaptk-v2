@@ -2,12 +2,13 @@
 #include <gp_atoms.hxx>
 #include <cstring>
 #include <fstream>
+#include <iostream>
 
 using namespace boost::python;
 
 	FOD_Problem::FOD_Problem( std::string domain, std::string instance ) {
 		m_parsing_time = 0.0f;
-		m_model = new aptk::FOD_Problem( domain, instance );
+		m_problem = new aptk::FOD_Problem( domain, instance );
 
 	}
 
@@ -16,17 +17,17 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_atom( std::string name ) {
-		m_model->new_atom( name );
+		m_problem->new_atom( name );
 	}
 
 	void
 	FOD_Problem::add_action( std::string name ) {
-		m_model->new_action( name );
+		m_problem->new_action( name );
 	}	
 
 	void
 	FOD_Problem::add_precondition( int index, boost::python::list& lits ) {
-		aptk::FOD_Problem::Action& action = *(m_model->actions[index]);
+		aptk::FOD_Problem::Action& action = *(m_problem->actions[index]);
 		for ( int i = 0; i < len(lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( lits[i] );
 			action.precondition.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
@@ -36,7 +37,7 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits ) {
-		aptk::FOD_Problem::Action& action = *(m_model->actions[index]);
+		aptk::FOD_Problem::Action& action = *(m_problem->actions[index]);
 		aptk::FOD_Problem::Effect eff;
 		for ( int i = 0; i < len(cond_lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( cond_lits[i] );
@@ -51,7 +52,7 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_effect( int index, boost::python::list& lits ) {
-		aptk::FOD_Problem::Action& action = *(m_model->actions[index]);
+		aptk::FOD_Problem::Action& action = *(m_problem->actions[index]);
 		aptk::FOD_Problem::Effect eff;
 		for ( int i = 0; i < len(lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( lits[i] );
@@ -63,7 +64,7 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_invariant( boost::python::list& lits ) {
-		aptk::DNF_Clause invariant;
+		aptk::Clause invariant;
 		for ( int i = 0; i < len(lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( lits[i] );
 			invariant.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );

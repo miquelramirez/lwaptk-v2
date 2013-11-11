@@ -1,4 +1,5 @@
 #include <py_fod_problem.hxx>
+using namespace boost::python;
 
 BOOST_PYTHON_MODULE( aptk )
 {

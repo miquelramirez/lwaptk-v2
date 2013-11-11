@@ -115,7 +115,7 @@ const lbool l_Undef = lbool((uint8_t)2);
 inline int   toInt  (lbool l) { return l.value; }
 inline lbool toLbool(int   v) { return lbool((uint8_t)v);  }
 
-class FOD_Model;
+class FOD_Problem;
 
 class Clause {
 	
@@ -221,7 +221,7 @@ class Clause {
 
 		void	write( std::ostream& os ) const;
 
-		void	write( std::ostream& os, const FOND_Model& i, bool write_negated = true ) const; 
+		void	write( std::ostream& os, const FOD_Problem& i, bool write_negated = true ) const; 
  
 		void	clear() 			{ m_lits_bits.reset(); m_lits.clear(); }
 		void	reserve( size_t sz ) 		{ m_lits.reserve( sz ); }

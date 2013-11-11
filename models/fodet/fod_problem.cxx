@@ -37,7 +37,7 @@ namespace aptk {
 		precondition.write( os, model );
 		os << std::endl;
 		os << "Effects: " << std::endl;
-		for ( const Effect& eff : effect ) {
+		for ( const Effect& eff : effects ) {
 			eff.condition.write( os, model );
 			os << " -> " << std::endl;
 			os << "\t";
