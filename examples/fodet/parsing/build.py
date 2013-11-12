@@ -7,11 +7,11 @@ LWAPTK_ROOT = '../../..'
 def main() :
 	
 	# 1. Copy FD python parsing files
-	if not os.path.exists( 'fd' ) :
-		rv = os.system( 'cp -ra %(LWAPTK_ROOT)s/external/fd .'%globals() )
-		if rv != 0 :
-			print >> sys.stderr, "Could not copy FD parser files!"
-			sys.exit(1)
+	os.system( 'rm -rf fd' )
+	rv = os.system( 'cp -ra %(LWAPTK_ROOT)s/external/fd .'%globals() )
+	if rv != 0 :
+		print >> sys.stderr, "Could not copy FD parser files!"
+		sys.exit(1)
 
 	# 2. Call scons to build
 	rv = os.system( 'scons' )	

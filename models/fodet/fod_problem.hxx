@@ -96,6 +96,10 @@ namespace aptk {
 		std::vector<Clause>		invariants;
 		size_t				max_precondition_size;
 
+		FOD_Problem( ) 
+			: max_precondition_size(0) {
+		}
+
 		FOD_Problem( const std::string& dom, const std::string& prob ) 
 			: domain_name( dom ), problem_name( prob ), max_precondition_size(0) {
 		}

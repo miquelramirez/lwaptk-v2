@@ -7,6 +7,7 @@
 
 class FOD_Problem {
 public:
+	FOD_Problem(  );
 	FOD_Problem( std::string, std::string );
 	~FOD_Problem();
 
@@ -20,12 +21,17 @@ public:
 	void	add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits );
 	void	add_effect( int index, boost::python::list& list );
 	void	add_invariant( boost::python::list& list );
+
 	void	set_init( boost::python::list& list );
 	void	set_goal( boost::python::list& list );
+	void	set_domain_name( std::string name );
+	void	set_problem_name( std::string name );
+
 	void	print_action( int index );
 
 	std::string	get_atom_name( int idx ) const { return m_problem->atoms[idx]->name; }
-		
+	std::string	get_domain_name() const { return m_problem->domain_name; }
+	std::string	get_problem_name() const { return m_problem->problem_name; }
 
 	size_t	n_atoms() 	const { return m_problem->n_atoms(); }
 	size_t	n_actions()	const { return m_problem->n_actions(); }

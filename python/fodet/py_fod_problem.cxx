@@ -6,6 +6,12 @@
 
 using namespace boost::python;
 
+	FOD_Problem::FOD_Problem( ) {
+		m_parsing_time = 0.0f;
+		m_problem = new aptk::FOD_Problem;
+
+	}
+
 	FOD_Problem::FOD_Problem( std::string domain, std::string instance ) {
 		m_parsing_time = 0.0f;
 		m_problem = new aptk::FOD_Problem( domain, instance );
@@ -95,6 +101,16 @@ using namespace boost::python;
 			boost::python::tuple li = extract< tuple >( lits[i] );
 			instance()->goal.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
 		}
+	}
+
+	void
+	FOD_Problem::set_domain_name( std::string name ) {
+		instance()->domain_name = name; 
+	}
+
+	void
+	FOD_Problem::set_problem_name( std::string name ) {
+		instance()->problem_name = name;
 	}
 
 	void
