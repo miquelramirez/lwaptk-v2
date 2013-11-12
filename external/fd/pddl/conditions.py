@@ -301,6 +301,11 @@ class Literal(Condition):
         return '<%s>' % self
     def _dump(self):
         return str(self)
+    def text( self ) :
+	if len(self.args) == 0 :
+		return "%s"%self.predicate
+        return "%s_%s"%(self.predicate,"_".join(map(str,self.args)))
+
     def change_parts(self, parts):
         return self
     def uniquify_variables(self, type_map, renamings={}):
