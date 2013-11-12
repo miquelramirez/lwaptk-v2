@@ -175,7 +175,8 @@ def default( domain_file, problem_file, output_task ) :
 			for p, v in eff :
 				text_eff.append( "%s=%s"%(output_task.get_atom_name( p ), not v) )
 		index += 1
-
+	output_task.set_domain_name( task.domain_name )
+	output_task.set_problem_name( task.task_name )
 	output_task.set_init( encode( task.init, atom_table ) )
 	output_task.set_goal( encode( task.goal, atom_table ) )
 	output_task.parsing_time = parsing_timer.report()

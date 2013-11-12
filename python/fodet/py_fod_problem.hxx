@@ -9,7 +9,7 @@ class FOD_Problem {
 public:
 	FOD_Problem(  );
 	FOD_Problem( std::string, std::string );
-	~FOD_Problem();
+	virtual ~FOD_Problem();
 
 	aptk::FOD_Problem*	instance() {
 		return m_problem;
