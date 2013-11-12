@@ -17,3 +17,5 @@
 
 # Misc temporary files
 *.swp
+*.csv
+*.dblite
