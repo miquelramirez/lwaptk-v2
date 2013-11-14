@@ -1,12 +1,14 @@
 #include <heuristics.hxx>
 #include <fstream>
 #include <h1.hxx>
+#include <prop_h2.hxx>
 #include <time.hxx>
 
 using namespace boost::python;
 
 typedef aptk::H1_Heuristic< aptk::H_Add_Evaluation_Function >	H_Additive;
 typedef aptk::H1_Heuristic< aptk::H_Max_Evaluation_Function >	H_Max;
+typedef aptk::Rule_Based_H2_Heuristic				H2;
 
 Heuristics_Example::Heuristics_Example() 
 	: FOD_Problem() {
@@ -32,6 +34,7 @@ Heuristics_Example::compute() {
 
 	H_Additive 	h_add( *instance() );
 	H_Max		h_max( *instance() );
+	H2		h2_max( *instance() );
 
 	t0 = aptk::read_time_in_seconds();
 	float h_val = h_add.full_eval( instance()->init, instance()->goal );
@@ -41,6 +44,13 @@ Heuristics_Example::compute() {
 
 	t0 = aptk::read_time_in_seconds();
 	h_val =  h_max.full_eval( instance()->init, instance()->goal );
+	tf = aptk::read_time_in_seconds();
+	report << tf - t0 << ",";
+	report << h_val << ",";
+
+	t0 = aptk::read_time_in_seconds();
+	h2_max.setup();
+	h_val = h2_max.eval( instance()->goal ); 
 	tf = aptk::read_time_in_seconds();
 	report << tf - t0 << ",";
 	report << h_val << ",";
