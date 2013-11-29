@@ -85,12 +85,21 @@ namespace aptk {
 			void print( std::ostream& os, const FOD_Problem& model ) const;
 		};
 
-		typedef	std::vector< Action* >		Action_Vec;
+		typedef	std::vector< const Action* >		Action_Vec;
+
+		// needed to fix the ordering of actions
+		class Action_Cmp {
+		public:
+			bool operator()( const Action* lhs, const Action* rhs ) const {
+				return lhs->precondition.size() < rhs->precondition.size();
+			}
+		};
 
 		std::string			domain_name;
 		std::string			problem_name;
 		Atom_Vec			atoms;
 		Action_Vec			actions;
+		std::vector< Action_Vec >	actions_requiring_var;
 		Clause				init;
 		Clause				goal;
 		std::vector<Clause>		invariants;
@@ -116,6 +125,12 @@ namespace aptk {
 		Action&		new_action( const std::string& name );
 		
 		void		add_invariant( const Clause& inv );
+
+		void		setup();
+
+	protected:
+
+		void		compute_var_to_action_table();
 	};
 
 }

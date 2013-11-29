@@ -27,6 +27,8 @@ public:
 	void	set_domain_name( std::string name );
 	void	set_problem_name( std::string name );
 
+	void	setup();
+
 	void	print_action( int index );
 
 	std::string	get_atom_name( int idx ) const { return m_problem->atoms[idx]->name; }

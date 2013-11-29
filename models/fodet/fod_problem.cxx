@@ -1,5 +1,6 @@
 #include <fod_problem.hxx>
 #include <iostream>
+#include <algorithm>
 
 namespace aptk {
 
@@ -46,5 +47,31 @@ namespace aptk {
 		}
 		os << std::endl;
 		
+	}
+
+	void
+	FOD_Problem::compute_var_to_action_table() {
+
+		actions_requiring_var.resize( atoms.size() );
+
+		for ( const Action* a : actions ) {
+			for ( Atom* x : atoms ) {
+				Lit lp = mkLit( x->index, false );
+				Lit ln = mkLit( x->index, true );
+				if ( a->precondition.entails(lp) || a->precondition.entails(ln) )
+					actions_requiring_var[ x->index ].push_back( a );		
+			}			
+
+		}
+
+	}
+
+	void 
+	FOD_Problem::setup() {
+		std::sort( actions.begin(), actions.end(), Action_Cmp() );
+		for ( unsigned k = 0; k < actions.size(); k++ )
+			const_cast<Action*>(actions[k])->index = k;
+
+		compute_var_to_action_table();
 	}
 }

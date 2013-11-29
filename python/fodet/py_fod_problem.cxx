@@ -33,7 +33,7 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_precondition( int index, boost::python::list& lits ) {
-		aptk::FOD_Problem::Action& action = *(m_problem->actions[index]);
+		aptk::FOD_Problem::Action& action = *(const_cast<aptk::FOD_Problem::Action*>(m_problem->actions[index]));
 		for ( int i = 0; i < len(lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( lits[i] );
 			action.precondition.add( aptk::mkLit( extract<int>(li[0]), extract<bool>(li[1]) ) );
@@ -43,7 +43,7 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_cond_effect( int index, boost::python::list& cond_lits, boost::python::list& eff_lits ) {
-		aptk::FOD_Problem::Action& action = *(m_problem->actions[index]);
+		aptk::FOD_Problem::Action& action = *(const_cast<aptk::FOD_Problem::Action*>(m_problem->actions[index]));
 		aptk::FOD_Problem::Effect eff;
 		for ( int i = 0; i < len(cond_lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( cond_lits[i] );
@@ -58,7 +58,7 @@ using namespace boost::python;
 
 	void
 	FOD_Problem::add_effect( int index, boost::python::list& lits ) {
-		aptk::FOD_Problem::Action& action = *(m_problem->actions[index]);
+		aptk::FOD_Problem::Action& action = *(const_cast<aptk::FOD_Problem::Action*>(m_problem->actions[index]));
 		aptk::FOD_Problem::Effect eff;
 		for ( int i = 0; i < len(lits); i++ ) {
 			boost::python::tuple li = extract< tuple >( lits[i] );
@@ -126,4 +126,9 @@ using namespace boost::python;
 		std::ofstream problem_stream( problem.c_str() );
 		m_inst->write_problem( problem_stream );
 		*/
+	}
+
+	void
+	FOD_Problem::setup() {
+		instance()->setup();
 	}
